@@ -34,7 +34,10 @@
         {{-- Current Stock Info Bar --}}
         <div class="flex items-center gap-4 p-4 bg-slate-800/60 rounded-xl mb-7 border border-slate-700/50">
             <div class="w-10 h-10 bg-blue-500/10 rounded-xl flex items-center justify-center flex-shrink-0">
-                <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+                <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
+                </svg>
             </div>
             <div class="flex-1">
                 <p class="text-white text-sm font-medium">{{ $product->name }}</p>
@@ -183,14 +186,26 @@
                     class="border border-slate-700 text-slate-400 hover:text-white hover:border-slate-600 px-6 py-3 rounded-xl font-medium transition">
                     Cancel
                 </a>
-                <form method="POST" action="{{ route('products.destroy', $product) }}" onsubmit="return confirm('Archive this product? It will no longer appear in the active list.')" class="ml-auto">
-                    @csrf @method('DELETE')
-                    <button type="submit" class="text-red-400 hover:text-red-300 border border-red-500/30 hover:border-red-400/60 px-4 py-3 rounded-xl text-sm transition flex items-center gap-2">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
-                        Archive Product
-                    </button>
-                </form>
             </div>
+        </form>
+
+        {{-- Delete Product --}}
+        <form method="POST"
+              action="{{ route('products.destroy', $product) }}"
+              onsubmit="return confirm('Delete this product permanently? This action cannot be undone.')"
+              class="mt-6 flex justify-end">
+
+            @csrf
+            @method('DELETE')
+
+            <button type="submit"
+                class="text-red-400 hover:text-red-300 border border-red-500/30 hover:border-red-400/60 px-4 py-3 rounded-xl text-sm transition flex items-center gap-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                </svg>
+                Delete Product
+            </button>
         </form>
     </div>
 </div>
