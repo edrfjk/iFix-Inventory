@@ -17,10 +17,10 @@ class SupplierController extends Controller {
     public function store(Request $request) {
         $request->validate([
             'name'           => 'required|string|max:255',
-            'contact_person'=> 'nullable|string|max:255',
-            'phone'          => 'nullable|string|max:20',
-            'email'          => 'nullable|email|max:255',
-            'address'        => 'nullable|string',
+            'contact_person'=> 'required|string|max:255',
+            'phone'          => 'required|string|max:20',
+            'email'          => 'required|email|max:255',
+            'address'        => 'required|string',
         ]);
         Supplier::create($request->all());
         return redirect()->route('suppliers.index')

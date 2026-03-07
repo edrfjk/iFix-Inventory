@@ -19,8 +19,12 @@ class ProductController extends Controller {
         }
 
         if ($request->category_id) $query->where('category_id', $request->category_id);
-        if ($request->status === 'low_stock') $query->whereColumn('quantity', '<=', 'low_stock_threshold');
-        if ($request->status === 'out_of_stock') $query->where('quantity', 0);
+if ($request->status === 'low_stock') {
+    $query->where('quantity', '>', 0)
+          ->whereColumn('quantity', '<=', 'low_stock_threshold');
+} elseif ($request->status === 'out_of_stock') {
+    $query->where('quantity', 0);
+}
 
         $products   = $query->latest()->paginate(15);
         $categories = Category::all();
@@ -36,16 +40,17 @@ class ProductController extends Controller {
 
     public function store(Request $request) {
         $request->validate([
-            'name'               => 'required|string|max:255',
-            'sku'                => 'required|string|unique:products,sku',
-            'category_id'        => 'nullable|exists:categories,id',
-            'supplier_id'        => 'nullable|exists:suppliers,id',
-            'cost_price'         => 'required|numeric|min:0',
-            'selling_price'      => 'required|numeric|min:0',
-            'quantity'           => 'required|integer|min:0',
-            'low_stock_threshold'=> 'required|integer|min:1',
-            'unit'               => 'required|string',
-        ]);
+    'name' => 'required|string|max:255',
+    'sku' => 'required|string|max:255|unique:products,sku',
+    'unit' => 'required|string|max:50',
+    'category_id' => 'required|exists:categories,id',
+    'supplier_id' => 'required|exists:suppliers,id',
+    'description' => 'required|string',
+    'cost_price' => 'required|numeric|min:0',
+    'selling_price' => 'required|numeric|min:0',
+    'quantity' => 'required|integer|min:0',
+    'low_stock_threshold' => 'required|integer|min:1',
+]);
 
         Product::create($request->all());
 
