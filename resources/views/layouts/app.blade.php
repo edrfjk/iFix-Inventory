@@ -142,7 +142,7 @@
                 <p class="text-slate-300 text-xs capitalize">{{ auth()->user()->role }}</p>
             </div>
         </div>
-        <form method="POST" action="{{ route('logout') }}">
+        <form method="POST" action="{{ route('logout') }}" onsubmit="return confirm('Are you sure you want to logout?')">
             @csrf
             <button type="submit" class="w-full flex items-center gap-2 px-3 py-2 text-slate-200 hover:text-red-200 hover:bg-red-500/10 rounded-lg transition text-sm">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
