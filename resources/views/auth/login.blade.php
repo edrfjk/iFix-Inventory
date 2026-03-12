@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>iFix Inventory — Login</title>
+    <link rel="icon" href="{{ asset('images/ifix-logo.png') }}" type="image/png">
+<link rel="shortcut icon" href="{{ asset('images/ifix-logo.png') }}" type="image/png">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
     tailwind.config = {

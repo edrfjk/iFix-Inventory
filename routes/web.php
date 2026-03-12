@@ -8,6 +8,8 @@ use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\AlertController;
+use App\Http\Controllers\ProfileController;
+
  
 // Redirect root to dashboard or login
 Route::get('/', fn() => redirect('/dashboard'));
@@ -16,6 +18,12 @@ Route::get('/', fn() => redirect('/dashboard'));
 Route::get('/login',  [LoginController::class, 'showLogin'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout',[LoginController::class, 'logout'])->name('logout');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::patch('/profile/password', [ProfileController::class, 'updatePassword'])->name('profile.password.update');
+});
  
 // Protected Routes (require login)
 Route::middleware('auth')->group(function () {
